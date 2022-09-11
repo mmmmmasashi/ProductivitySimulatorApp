@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivitySimulatorApp", "ProductivitySimulatorApp\ProductivitySimulatorApp.csproj", "{2740CCF5-5B32-4CDF-91A9-1FE70905A72C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivitySimDomainLib", "ProductivitySimDomainLib\ProductivitySimDomainLib.csproj", "{42FFC6B5-EBCA-4BC8-BD7D-7DA1208259D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivitySimDomainLibTest", "ProductivitySimDomainLibTest\ProductivitySimDomainLibTest.csproj", "{9B5150CC-6BA7-4964-BB07-C23F8B210029}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2740CCF5-5B32-4CDF-91A9-1FE70905A72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2740CCF5-5B32-4CDF-91A9-1FE70905A72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2740CCF5-5B32-4CDF-91A9-1FE70905A72C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42FFC6B5-EBCA-4BC8-BD7D-7DA1208259D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42FFC6B5-EBCA-4BC8-BD7D-7DA1208259D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42FFC6B5-EBCA-4BC8-BD7D-7DA1208259D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42FFC6B5-EBCA-4BC8-BD7D-7DA1208259D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5150CC-6BA7-4964-BB07-C23F8B210029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5150CC-6BA7-4964-BB07-C23F8B210029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5150CC-6BA7-4964-BB07-C23F8B210029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5150CC-6BA7-4964-BB07-C23F8B210029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
