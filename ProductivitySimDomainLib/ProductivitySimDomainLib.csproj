@@ -7,12 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Task\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>ClassLibrary1.Tests</_Parameter1>
+      <_Parameter1>ProductivitySimDomainLibTest</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
   
