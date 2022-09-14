@@ -8,8 +8,17 @@ namespace ProductivitySimDomainLib.Output
 {
     internal class FeatureOutput : IOutput
     {
+        private bool hasBug;
+
         public FeatureOutput()
         {
         }
+
+        public FeatureOutput(bool hasBug)
+        {
+            this.hasBug = hasBug;
+        }
+
+        public bool HasBug => hasBug;
     }
 }

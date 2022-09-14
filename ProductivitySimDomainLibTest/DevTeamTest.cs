@@ -17,20 +17,9 @@ namespace ProductivitySimDomainLibTest
             team = new DevTeam(TaskPerTime, FailureRate);
         }
 
-        //[Fact]
-        //public void 修正失敗率が0だとバグが起きない()
-        //{
-        //    for (int i = 0; i < 1000; i++)
-        //    {
-        //        team.Input(new FeatureTask());
-        //        List<ITask> outputs = team.NextOutput();
-        //        Assert.False(outputs.First().HasBug);
-        //    }
-        //}
-
         [Fact]
         public void 単位時間あたり3処理できるチームが_3のアウトプットを出す()
-        {            
+        {
             team.Input(new FeatureTask());
             team.Input(new FeatureTask());
             team.Input(new FeatureTask());
@@ -50,6 +39,39 @@ namespace ProductivitySimDomainLibTest
             List<IOutput> outputs = team.NextOutput();
 
             Assert.Equal(2, outputs.Count);
+        }
+    }
+
+    public class DevTeam_バグ発生率テスト
+    {
+        [Fact]
+        public void 修正失敗率が0だとバグが起きない()
+        {
+            const decimal TaskPerTime = 3;
+            const double FailureRate = 0;//修正失敗率 
+            var team = new DevTeam(TaskPerTime, FailureRate);
+
+            for (int i = 0; i < 100; i++)
+            {
+                team.Input(new FeatureTask());
+                List<IOutput> outputs = team.NextOutput();
+                Assert.False(outputs.First().HasBug);
+            }
+        }
+
+        [Fact]
+        public void 修正失敗率が100percentだと必ずバグが発生する()
+        {
+            const decimal TaskPerTime = 3;
+            const double FailureRate = 1;//修正失敗率 
+            var team = new DevTeam(TaskPerTime, FailureRate);
+
+            for (int i = 0; i < 100; i++)
+            {
+                team.Input(new FeatureTask());
+                List<IOutput> outputs = team.NextOutput();
+                Assert.True(outputs.First().HasBug);
+            }
         }
     }
 

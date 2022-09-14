@@ -8,5 +8,6 @@ namespace ProductivitySimDomainLib.Output
 {
     internal interface IOutput
     {
+        bool HasBug { get; }
     }
 }

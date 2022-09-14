@@ -9,9 +9,9 @@ namespace ProductivitySimDomainLib.Task
 {
     internal class FeatureTask : ITask
     {
-        public IOutput Done()
+        public IOutput Done(bool hasBug)
         {
-            return new FeatureOutput();
+            return new FeatureOutput(hasBug);
         }
     }
 }

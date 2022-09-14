@@ -12,6 +12,7 @@ namespace ProductivitySimDomainLib.Unit
     {
         private Queue<ITask> _taskQueue;
         private readonly decimal _taskPerTime;
+        private readonly Random _random;
         private decimal _amountOfWip;//Work In Progress(仕掛かりタスク)の量
         private double failureRate;
 
@@ -24,6 +25,8 @@ namespace ProductivitySimDomainLib.Unit
             _amountOfWip = 0M;
             _taskQueue = new Queue<ITask>();
             _taskPerTime = taskPerTime;
+
+            _random = new Random();
         }
 
         public DevTeam(decimal taskPerTime, double failureRate) : this(taskPerTime)
@@ -43,7 +46,9 @@ namespace ProductivitySimDomainLib.Unit
             _amountOfWip -= outputCapability;
 
             int outputThisTime = Math.Min(outputCapability, _taskQueue.Count);
-            return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue().Done()).ToList();
+
+            bool hasFailure = _random.NextDouble() < failureRate;
+            return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue().Done(hasFailure)).ToList();
         }
 
         private int CalculateOutputThisTime(decimal amountOfWip)

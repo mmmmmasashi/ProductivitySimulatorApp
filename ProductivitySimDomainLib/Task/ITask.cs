@@ -9,6 +9,6 @@ namespace ProductivitySimDomainLib.Task
 {
     internal interface ITask
     {
-        IOutput Done();
+        IOutput Done(bool hasBug);
     }
 }
