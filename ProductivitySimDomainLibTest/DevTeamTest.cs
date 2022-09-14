@@ -6,6 +6,53 @@ using Xunit;
 
 namespace ProductivitySimDomainLibTest
 {
+
+    public class DevTeamTest
+    {
+        [Fact]
+        public void C³¸”s—¦‚Í0_1‚ÌŠÔ()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DevTeam(1, -0.01));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DevTeam(1, 1.01));
+        }
+
+        [Fact]
+        public void ŠÔ‚ ‚½‚èˆ—ƒ^ƒXƒN‚Í³‚Ì’l()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DevTeam(-0.1M, 1));
+        }
+
+        [Fact]
+        public void C³¸”s—¦‚ª0‚¾‚ÆƒoƒO‚ª‹N‚«‚È‚¢()
+        {
+            const decimal TaskPerTime = 3;
+            const double FailureRate = 0;//C³¸”s—¦ 
+            var team = new DevTeam(TaskPerTime, FailureRate);
+
+            for (int i = 0; i < 100; i++)
+            {
+                team.Input(new FeatureTask());
+                List<IOutput> outputs = team.NextOutput();
+                Assert.False(outputs.First().HasBug);
+            }
+        }
+
+        [Fact]
+        public void C³¸”s—¦‚ª100percent‚¾‚Æ•K‚¸ƒoƒO‚ª”­¶‚·‚é()
+        {
+            const decimal TaskPerTime = 3;
+            const double FailureRate = 1;//C³¸”s—¦ 
+            var team = new DevTeam(TaskPerTime, FailureRate);
+
+            for (int i = 0; i < 100; i++)
+            {
+                team.Input(new FeatureTask());
+                List<IOutput> outputs = team.NextOutput();
+                Assert.True(outputs.First().HasBug);
+            }
+        }
+    }
+
     public class DevTeam_’PˆÊŠÔ‚ ‚½‚èˆ——Ê‚ª3‚ÌTest
     {
         IUnit team;
@@ -42,38 +89,6 @@ namespace ProductivitySimDomainLibTest
         }
     }
 
-    public class DevTeam_ƒoƒO”­¶—¦ƒeƒXƒg
-    {
-        [Fact]
-        public void C³¸”s—¦‚ª0‚¾‚ÆƒoƒO‚ª‹N‚«‚È‚¢()
-        {
-            const decimal TaskPerTime = 3;
-            const double FailureRate = 0;//C³¸”s—¦ 
-            var team = new DevTeam(TaskPerTime, FailureRate);
-
-            for (int i = 0; i < 100; i++)
-            {
-                team.Input(new FeatureTask());
-                List<IOutput> outputs = team.NextOutput();
-                Assert.False(outputs.First().HasBug);
-            }
-        }
-
-        [Fact]
-        public void C³¸”s—¦‚ª100percent‚¾‚Æ•K‚¸ƒoƒO‚ª”­¶‚·‚é()
-        {
-            const decimal TaskPerTime = 3;
-            const double FailureRate = 1;//C³¸”s—¦ 
-            var team = new DevTeam(TaskPerTime, FailureRate);
-
-            for (int i = 0; i < 100; i++)
-            {
-                team.Input(new FeatureTask());
-                List<IOutput> outputs = team.NextOutput();
-                Assert.True(outputs.First().HasBug);
-            }
-        }
-    }
 
     public class DevTeam_’PˆÊŠÔ‚ ‚½‚èˆ——Ê‚ª0dot3‚ÌTest
     {
@@ -82,7 +97,7 @@ namespace ProductivitySimDomainLibTest
         public DevTeam_’PˆÊŠÔ‚ ‚½‚èˆ——Ê‚ª0dot3‚ÌTest()
         {
             const decimal TaskPerTime = 0.3M;
-            team = new DevTeam(TaskPerTime);
+            team = new DevTeam(TaskPerTime, 0);
         }
 
         [Fact]

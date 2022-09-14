@@ -14,24 +14,22 @@ namespace ProductivitySimDomainLib.Unit
         private readonly decimal _taskPerTime;
         private readonly Random _random;
         private decimal _amountOfWip;//Work In Progress(仕掛かりタスク)の量
-        private double failureRate;
+        private double _failureRate;
 
         /// <summary>
         /// 開発チーム
         /// </summary>
         /// <param name="taskPerTime">単位時間あたりにこなせるタスクの量(=処理速度)</param>
-        public DevTeam(decimal taskPerTime)
+        public DevTeam(decimal taskPerTime, double failureRate)
         {
+            if (taskPerTime < 0) throw new ArgumentOutOfRangeException();
+            if (failureRate < 0 || 1.0f < failureRate) throw new ArgumentOutOfRangeException();
+
             _amountOfWip = 0M;
             _taskQueue = new Queue<ITask>();
             _taskPerTime = taskPerTime;
-
+            _failureRate = failureRate;
             _random = new Random();
-        }
-
-        public DevTeam(decimal taskPerTime, double failureRate) : this(taskPerTime)
-        {
-            this.failureRate = failureRate;
         }
 
         public void Input(ITask task)
@@ -47,7 +45,7 @@ namespace ProductivitySimDomainLib.Unit
 
             int outputThisTime = Math.Min(outputCapability, _taskQueue.Count);
 
-            bool hasFailure = _random.NextDouble() < failureRate;
+            bool hasFailure = _random.NextDouble() < _failureRate;
             return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue().Done(hasFailure)).ToList();
         }
 
