@@ -1,5 +1,8 @@
+using ProductivitySimDomainLib.Output;
 using ProductivitySimDomainLib.Task;
 using ProductivitySimDomainLib.Unit;
+using System;
+using Xunit;
 
 namespace ProductivitySimDomainLibTest
 {
@@ -10,8 +13,20 @@ namespace ProductivitySimDomainLibTest
         public DevTeam_単位時間あたり処理量が3のTest()
         {
             const decimal TaskPerTime = 3;
-            team = new DevTeam(TaskPerTime);
+            const double FailureRate = 0;//修正失敗率 
+            team = new DevTeam(TaskPerTime, FailureRate);
         }
+
+        //[Fact]
+        //public void 修正失敗率が0だとバグが起きない()
+        //{
+        //    for (int i = 0; i < 1000; i++)
+        //    {
+        //        team.Input(new FeatureTask());
+        //        List<ITask> outputs = team.NextOutput();
+        //        Assert.False(outputs.First().HasBug);
+        //    }
+        //}
 
         [Fact]
         public void 単位時間あたり3処理できるチームが_3のアウトプットを出す()
@@ -21,7 +36,7 @@ namespace ProductivitySimDomainLibTest
             team.Input(new FeatureTask());
             team.Input(new FeatureTask());
 
-            List<ITask> outputs = team.NextOutput();
+            List<IOutput> outputs = team.NextOutput();
 
             Assert.Equal(3, outputs.Count);
         }
@@ -32,7 +47,7 @@ namespace ProductivitySimDomainLibTest
             team.Input(new FeatureTask());
             team.Input(new FeatureTask());
 
-            List<ITask> outputs = team.NextOutput();
+            List<IOutput> outputs = team.NextOutput();
 
             Assert.Equal(2, outputs.Count);
         }
@@ -55,25 +70,25 @@ namespace ProductivitySimDomainLibTest
             team.Input(new FeatureTask());
             team.Input(new FeatureTask());
 
-            List<ITask> outputs1 = team.NextOutput();//0.3
+            List<IOutput> outputs1 = team.NextOutput();//0.3
             Assert.Empty(outputs1);
 
-            List<ITask> outputs2 = team.NextOutput();//0.6
+            List<IOutput> outputs2 = team.NextOutput();//0.6
             Assert.Empty(outputs2);
 
-            List<ITask> outputs3 = team.NextOutput();//0.9
+            List<IOutput> outputs3 = team.NextOutput();//0.9
             Assert.Empty(outputs3);
 
-            List<ITask> outputs4 = team.NextOutput();//1.2 -> 0.2
+            List<IOutput> outputs4 = team.NextOutput();//1.2 -> 0.2
             Assert.Single(outputs4);
 
-            List<ITask> outputs5 = team.NextOutput();//0.5
+            List<IOutput> outputs5 = team.NextOutput();//0.5
             Assert.Empty(outputs5);
 
-            List<ITask> outputs6 = team.NextOutput();//0.8
+            List<IOutput> outputs6 = team.NextOutput();//0.8
             Assert.Empty(outputs6);
 
-            List<ITask> outputs7 = team.NextOutput();//1.1 -> 0.1
+            List<IOutput> outputs7 = team.NextOutput();//1.1 -> 0.1
             Assert.Single(outputs7);
         }
 

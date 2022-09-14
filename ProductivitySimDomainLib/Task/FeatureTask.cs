@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivitySimDomainLib.Output;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,9 @@ namespace ProductivitySimDomainLib.Task
 {
     internal class FeatureTask : ITask
     {
+        public IOutput Done()
+        {
+            return new FeatureOutput();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProductivitySimDomainLib.Task;
+﻿using ProductivitySimDomainLib.Output;
+using ProductivitySimDomainLib.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,6 @@ namespace ProductivitySimDomainLib.Unit
         /// 単位時間経過時のアウトプットを受け取る
         /// </summary>
         /// <returns>処理されたタスク</returns>
-        List<ITask> NextOutput();
+        List<IOutput> NextOutput();
     }
 }

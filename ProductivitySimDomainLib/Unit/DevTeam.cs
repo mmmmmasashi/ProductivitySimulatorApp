@@ -1,4 +1,5 @@
-﻿using ProductivitySimDomainLib.Task;
+﻿using ProductivitySimDomainLib.Output;
+using ProductivitySimDomainLib.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ProductivitySimDomainLib.Unit
         private Queue<ITask> _taskQueue;
         private readonly decimal _taskPerTime;
         private decimal _amountOfWip;//Work In Progress(仕掛かりタスク)の量
+        private double failureRate;
 
         /// <summary>
         /// 開発チーム
@@ -24,19 +26,24 @@ namespace ProductivitySimDomainLib.Unit
             _taskPerTime = taskPerTime;
         }
 
+        public DevTeam(decimal taskPerTime, double failureRate) : this(taskPerTime)
+        {
+            this.failureRate = failureRate;
+        }
+
         public void Input(ITask task)
         {
             _taskQueue.Enqueue(task);
         }
 
-        public List<ITask> NextOutput()
+        public List<IOutput> NextOutput()
         {
             _amountOfWip += _taskPerTime;
             int outputCapability = CalculateOutputThisTime(_amountOfWip);
             _amountOfWip -= outputCapability;
 
             int outputThisTime = Math.Min(outputCapability, _taskQueue.Count);
-            return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue()).ToList();
+            return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue().Done()).ToList();
         }
 
         private int CalculateOutputThisTime(decimal amountOfWip)
