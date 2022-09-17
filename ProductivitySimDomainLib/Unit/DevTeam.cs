@@ -46,17 +46,19 @@ namespace ProductivitySimDomainLib.Unit
             int outputThisTime = Math.Min(outputCapability, _taskQueue.Count);
 
             var outputs = new List<ITask>();
-            Enumerable.Range(0, outputThisTime).ToList().ForEach(_ =>
+
+            for (int i = 0; i < outputThisTime; i++)
             {
                 var task = _taskQueue.Dequeue();
-                outputs.Add(task.Done(false));
+                outputs.Add(task.Done());
 
                 bool hasFailure = _random.NextDouble() < _failureRate;
                 if (hasFailure)
                 {
                     outputs.Add(new Bug());
                 }
-            });
+            }
+
             return outputs;
         }
 

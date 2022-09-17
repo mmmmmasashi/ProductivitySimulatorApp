@@ -9,17 +9,9 @@ namespace ProductivitySimDomainLib.Task
 {
     internal class FeatureTask : ITask
     {
-        private bool hasBug;
-        public bool HasBug => hasBug;
-
-        public FeatureTask(bool hasBug = false)
+        public ITask Done()
         {
-            this.hasBug = hasBug;
-        }
-
-        public ITask Done(bool hasBug)
-        {
-            return new FeatureTask(hasBug);
+            return new FeatureTask();
         }
     }
 }

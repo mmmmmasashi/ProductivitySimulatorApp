@@ -8,9 +8,7 @@ namespace ProductivitySimDomainLib.Task
 {
     internal class Bug : ITask
     {
-        public bool HasBug => true;
-
-        public ITask Done(bool hasBug)
+        public ITask Done()
         {
             throw new NotImplementedException();
         }
