@@ -1,5 +1,4 @@
-﻿using ProductivitySimDomainLib.Task;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProductivitySimDomainLib.Task
 {
-    internal class FeatureTask : ITask
+    /// <summary>
+    /// 完成済みの機能
+    /// </summary>
+    internal class Feature : ITask
     {
         public ITask Done()
         {
-            return new Feature();
+            throw new NotImplementedException();
         }
     }
 }
