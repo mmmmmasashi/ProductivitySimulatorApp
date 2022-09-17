@@ -33,7 +33,7 @@ namespace ProductivitySimDomainLibTest
             {
                 team.Input(new FeatureTask());
                 List<ITask> outputs = team.NextOutput();
-                Assert.False(outputs.First().HasBug);
+                Assert.Single(outputs);
             }
         }
 
@@ -48,7 +48,11 @@ namespace ProductivitySimDomainLibTest
             {
                 team.Input(new FeatureTask());
                 List<ITask> outputs = team.NextOutput();
-                Assert.True(outputs.First().HasBug);
+
+                Assert.Equal(2, outputs.Count());
+                
+                Assert.IsType<FeatureTask>(outputs[0]);
+                Assert.IsType<Bug>(outputs[1]);
             }
         }
     }

@@ -45,8 +45,19 @@ namespace ProductivitySimDomainLib.Unit
 
             int outputThisTime = Math.Min(outputCapability, _taskQueue.Count);
 
-            bool hasFailure = _random.NextDouble() < _failureRate;
-            return Enumerable.Range(0, outputThisTime).Select(_ => _taskQueue.Dequeue().Done(hasFailure)).ToList();
+            var outputs = new List<ITask>();
+            Enumerable.Range(0, outputThisTime).ToList().ForEach(_ =>
+            {
+                var task = _taskQueue.Dequeue();
+                outputs.Add(task.Done(false));
+
+                bool hasFailure = _random.NextDouble() < _failureRate;
+                if (hasFailure)
+                {
+                    outputs.Add(new Bug());
+                }
+            });
+            return outputs;
         }
 
         private int CalculateOutputThisTime(decimal amountOfWip)
