@@ -1,4 +1,4 @@
-﻿using ProductivitySimDomainLib.Output;
+﻿using ProductivitySimDomainLib.Task;
 using ProductivitySimDomainLib.Task;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace ProductivitySimDomainLib.Unit
             _taskQueue.Enqueue(task);
         }
 
-        public List<IOutput> NextOutput()
+        public List<ITask> NextOutput()
         {
             _amountOfWip += _taskPerTime;
             int outputCapability = CalculateOutputThisTime(_amountOfWip);

@@ -1,4 +1,4 @@
-﻿using ProductivitySimDomainLib.Output;
+﻿using ProductivitySimDomainLib.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace ProductivitySimDomainLib.Task
 {
     internal interface ITask
     {
-        IOutput Done(bool hasBug);
+        ITask Done(bool hasBug);
+        bool HasBug { get; }
     }
 }
